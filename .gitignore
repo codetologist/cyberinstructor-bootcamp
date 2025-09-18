@@ -2,3 +2,4 @@
 pythonenv/
 .qodo/
 __pycache__/
+.vscode/
