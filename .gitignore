@@ -1,0 +1,4 @@
+.coverage
+pythonenv/
+.qodo/
+__pycache__/
