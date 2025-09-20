@@ -4,3 +4,5 @@ sys
 os
 pathlib
 coverage
+socket
+unittest
