@@ -1,4 +1,6 @@
 import unittest
+import os
+
 import script
 from utils.utils import isValidDomain, fileExtensionIsSupported
 
@@ -38,6 +40,14 @@ class TestFileValidation(unittest.TestCase):
     def test_oneExistingTextFile(self):
         self.assertTrue(len(script.extractValidDomainsFromUserInput(["files/input.txt"])) == 17)
     
+    def test_fullFilepath(self):
+        current_directory = os.getcwd()
+        print(f'Current Directory: {current_directory}')
+        filepath = os.path.abspath("files/input.txt")
+        print(f'Filepath: {filepath}, type: {type(filepath)}', filepath)
+        filename = "input.txt"
+        self.assertTrue(len(script.extractValidDomainsFromUserInput([filepath])) == 17)
+
     def test_oneExistingTextFileWithOneInvalidDomain(self):
         self.assertTrue(len(script.extractValidDomainsFromUserInput(["files/input4.txt"])) == 0)
 
