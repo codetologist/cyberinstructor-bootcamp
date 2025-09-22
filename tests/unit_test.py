@@ -5,21 +5,25 @@ import script
 from utils.utils import isValidDomain, fileExtensionIsSupported
 
 class TestScriptParameters(unittest.TestCase):
-    def setup(self):
-        pass
-    
+    @unittest.skip("Not implemented")
     def test_noParameters(self):
-        self.assertTrue(True)
+       #self.assertWarnsRegex(UserWarning,"Invalid command-line argument/s.", os.system("python script.py"),None)
+       #self.assertWarns(UserWarning,os.system("python script.py"))
+       pass
 
+    def test_noParametersAtAll(self):
+        with self.assertWarns(UserWarning) as warning_record:
+            script.assingment1(["test"])
+        self.assertEqual(len(warning_record.warnings), 1)
+        self.assertIn("Invalid command-line argument/s.", warning_record.warnings[0].message.args[0])
+
+    @unittest.skip("Not implemented")
     def test_oneValidDomain(self):
         self.assertTrue(True)
     
-    def tearDown(self):
-        pass
+
 
 class TestDomainValidation(unittest.TestCase):
-    def setup(self):
-        pass
 
     def test_simpleValidDomain(self):
         self.assertTrue(isValidDomain("example.com"))
@@ -29,13 +33,9 @@ class TestDomainValidation(unittest.TestCase):
     
     def test_emptyString(self):
         self.assertFalse(isValidDomain(""))
-    
-    def tearDown(self):
-        pass
+
 
 class TestFileValidation(unittest.TestCase):
-    def setup(self):
-        pass
 
     def test_oneExistingTextFile(self):
         self.assertTrue(len(script.extractValidDomainsFromUserInput(["files/input.txt"])) == 17)
@@ -57,8 +57,6 @@ class TestFileValidation(unittest.TestCase):
     def test_unrecognizedFileExtension(self):
         self.assertFalse(fileExtensionIsSupported("file.pdf"))
 
-    def tearDown(self):
-        pass
 
 if __name__ == "__main__":
-    unittest.main()
+    unittest.main(verbosity=2)

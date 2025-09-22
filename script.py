@@ -2,6 +2,7 @@ import whois as python_whois #python-whois
 import time
 import sys
 import os
+import warnings
 from pathlib import Path
 import socket
 
@@ -31,14 +32,11 @@ def extractValidDomainsFromUserInput(listOfDomainsOrFiles):
             print(f"File {supported_file} does not exist.") 
     return listOfValidDomains
 
-
-def assingment1 ():
-    scriptFileName = sys.argv[0]
-    userInputList = sys.argv[1:]
-
+def assingment1(userInputList):
     if len(userInputList) == 0:
-        print(f"Usage: python {scriptFileName} example.com example.org file.txt")
-        return
+        #print(f"Usage: python {scriptFileName} example.com example.org file.txt")
+        warnings.warn("Invalid command-line argument/s.", UserWarning)
+        return "Invalid command-line argument/s."
 
     listOfValidDomains = extractValidDomainsFromUserInput(userInputList)
     
@@ -59,6 +57,13 @@ def assingment1 ():
         socket.setdefaulttimeout(None)
     else:
         print("Please provide a list of valid domains as a command-line argument and/or a file names ending in .txt.")
+        warnings.warn("Invalid command-line argument/s.", UserWarning)
+        return "Invalid command-line argument/s."
+
+def main ():
+    scriptFileName = sys.argv[0]
+    userInputList = sys.argv[1:]
+    assingment1(userInputList)
 
 if __name__ == "__main__":
-    assingment1()
+    main()
